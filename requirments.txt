@@ -1,6 +1,0 @@
-flask
-flask_sqlalchemy
-python-magic
-tensorflow-cpu
-tensorflow_hub==0.13.0
-pillow

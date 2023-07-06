@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Service{% endblock %}
+
+{% block content %}
+
+<style>
+    .container{
+    margin-top: 100px;
+    background-color: white;
+    padding: 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  body{
+    background-color: #eeeeee;
+  }
+</style>
+
+<div class="container ">
+  <div class="row">
+    <div class="col">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Insurance</h5>
+          <button type="button" onclick="window.location='/insurance/apply'" class="btn btn-primary">Apply</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Compensation</h5>
+          <button type="button" onclick="window.location='/compensation/apply'" class="btn btn-primary">Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+
+
+  
+{% endblock %}

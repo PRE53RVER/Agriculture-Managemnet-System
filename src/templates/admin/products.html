@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+        .container {
+        max-width: 1700px;
+        margin: 0 auto;
+        margin-top: 150px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+.img{
+        width: 500px;
+        max-height: 300px;
+      }
+</style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Agriculture Management System Admin-Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="requestsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Requests
+          </a>
+          <div class="dropdown-menu" aria-labelledby="requestsDropdown">
+            <a class="dropdown-item" href="/admin/insurance">Insurance</a>
+            <a class="dropdown-item" href="/admin/compensation">Compensation</a>
+            <a class="dropdown-item" href="/admin/subsidy">Subsidy</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Account
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/admin/add">add Admin</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+
+      </ul>
+    </div>
+  </nav>
+    <div class="container mt-5">
+        <h2>Add a Product</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <h5>Seeds</h5>
+                {% for detail in products %}
+                {%if detail.type == "seed"%}
+                <div class="product-box">
+                    <div class="col">
+                        <div class="row-md-3">
+                            <img src="/image/product/{{detail.image}}" alt="Product Photo" class="img img-fluid">
+                        </div>
+                        <div class="row-md-7">
+                          <h6>{{detail.name}}</h6>
+                        </div>
+                        <div class="row-md-7">
+                          <h6>{{detail.description}}</h6>
+                        </div>
+                        <div class="row-md-2">
+                          <h6>₹{{detail.price}}</h6>
+                          <button class="btn btn-danger btn-sm " onclick="sendPostRequest('/admin/delete_product/{{detail.product_id}}')">Delete</button>
+                        </div>
+                        <div class="row-md-2">
+                          <hr>
+                      </div>
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                
+                
+                
+                
+                
+
+
+
+            </div>
+            
+            <div class="col-md-4">
+                <h3>Fertilizers</h3>
+                {% for detail in products %}
+                {%if detail.type == "fertilizer"%}
+                <div class="product-box">
+                  <div class="col">
+                      <div class="row-md-3">
+                        <img src="/image/product/{{detail.image}}" alt="Product Photo" class="img img-fluid">
+                      </div>
+                      <div class="row-md-7">
+                        <h6>{{detail.name}}</h6>
+                      </div>
+                      <div class="row-md-7">
+                        <h6>{{detail.description}}</h6>
+                      </div>
+                      <div class="row-md-2">
+                        <h6>₹{{detail.price}}</h6>
+                        <button class="btn btn-danger btn-sm " onclick="sendPostRequest('/admin/delete_product/{{detail.product_id}}')">Delete</button>
+                      </div>
+                      <div class="row-md-2">
+                        <hr>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+                <h3>Tools</h3>
+                {% for detail in products %}
+                {%if detail.type == "machine"%}
+                <div class="product-box">
+                  <div class="col">
+                      <div class="row-md-3">
+                          <img src="/image/product/{{detail.image}}" alt="Product Photo" class="img img-fluid">
+                      </div>
+                      <div class="row-md-7">
+                        <h6>{{detail.name}}</h6>
+                      </div>
+                      <div class="row-md-7">
+                        <h6>{{detail.description}}</h6>
+                      </div>
+                      <div class="row-md-2">
+                        <h6>₹{{detail.price}}</h6>
+                        <button class="btn btn-danger btn-sm " onclick="sendPostRequest('/admin/delete_product/{{detail.product_id}}')">Delete</button>
+                      </div>
+                      <div class="row-md-2">
+                        <hr>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                  
+              </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      function sendPostRequest(url) {
+  // Create the request options
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' // Assuming you're sending JSON data
+    },
+// Convert the data to JSON string
+  };
+
+  // Send the POST request
+  fetch(url, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Request failed with status ' + response.status);
+      }
+      return response.text(); // Parse the response data as JSON
+    })
+    .then(responseData => {
+      // Handle the response data
+      console.log('Response:', responseData);
+      window.location.reload();
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error('Error:', error);
+    });
+}
+
+
+    </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

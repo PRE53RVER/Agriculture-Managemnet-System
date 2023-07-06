@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Land Details Registration Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container{
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 70px;
+      margin-bottom: 50px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Add Land Details</h1>
+    <form action="/add_land" method="POST">
+      <div id="landDetailsContainer">
+        <div class="land-details">
+          <h3>Land 1</h3>
+          <div class="form-group">
+            <label for="LandDistrict">District:</label>
+            <input type="text" class="form-control" id="LandDistrict" name="district" required>
+          </div>
+          <div class="form-group">
+            <label for="Taluk">Taluk:</label>
+            <input type="text" class="form-control" id="Taluk" name="taluk" required>
+          </div>
+          <div class="form-group">
+            <label for="Village">Village:</label>
+            <input type="text" class="form-control" id="Village" name="village" required>
+          </div>
+          <div class="form-group">
+            <label for="BlockNumber">Block Number:</label>
+            <input type="text" class="form-control" id="BlockNumber" name="block_number" required>
+          </div>
+          <div class="form-group">
+            <label for="SurveyNumber">Survey Number:</label>
+            <input type="text" class="form-control" id="SurveyNumber" name="survey_number" required>
+          </div>
+          <div class="form-group">
+            <label for="KrishibhavanName">Krishibhavan Name:</label>
+            <input type="text" class="form-control" id="KrishibhavanName" name="kbhavan" required>
+          </div>
+          <div class="form-group">
+            <label for="Ward">Ward:</label>
+            <input type="text" class="form-control" id="Ward" name="ward_number" required>
+          </div>
+          <div class="form-group">
+            <label for="AgricuktureLandName">Agriculture Land Name:</label>
+            <input type="text" class="form-control" id="AgricuktureLandName" name="lname" required>
+          </div>
+          <div class="form-group">
+            <label for="Area">Area (in units):</label>
+            <input type="text" class="form-control" id="Area" name="area" required>
+          </div>
+          <div class="form-group">
+            <label for="subdivision_number">subdivision_number</label>
+            <input type="text" class="form-control" id="subdivision_number" name="subdivision_number" required>
+          </div>
+
+          <div class="form-group">
+            <label for="LandType">Land Type:</label>
+            <input type="text" class="form-control" id="LandType" name="land_type" required>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <button type="button" class="btn btn-primary" onclick="addLand()">Add Another Land</button>
+        <button type="submit" class="btn btn-primary">Next</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    let landCount = 1;
+
+    function addLand() {
+      landCount++;
+
+      const landDetails = document.createElement("div");
+      landDetails.classList.add("land-details");
+
+      const heading = document.createElement("h3");
+      heading.textContent = `Land ${landCount}`;
+      landDetails.appendChild(heading);
+
+      const fields = [
+        "LandDistrict", "Taluk", "Village", "BlockNumber", "SurveyNumber", "KrishibhavanName",
+        "Ward", "AgricuktureLandName", "Area", "Ownership", "LandType"
+      ];
+
+      fields.forEach(field => {
+        const formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
+
+        const label = document.createElement("label");
+        label.setAttribute("for", field);
+        label.textContent = field + ":";
+
+        const input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.classList.add("form-control");
+        input.setAttribute("id", field);
+        input.setAttribute("name", `${field}`);
+        input.setAttribute("required", "true");
+
+        formGroup.appendChild(label);
+        formGroup.appendChild(input);
+        landDetails.appendChild(formGroup);
+      });
+
+      if (landCount > 1) {
+        const deleteButton = document.createElement("button");
+        deleteButton.setAttribute("type", "button");
+        deleteButton.classList.add("btn", "btn-danger");
+        deleteButton.textContent = "Delete Land";
+        deleteButton.addEventListener("click", function() {
+          deleteLand(this);
+        });
+        landDetails.appendChild(deleteButton);
+      }
+
+      const container = document.getElementById("landDetailsContainer");
+      container.appendChild(landDetails);
+    }
+
+    function deleteLand(button) {
+      const landDetails = button.parentElement;
+      const container = landDetails.parentElement;
+      landDetails.remove();
+
+      // Update the land number for the remaining land sections
+      const landSections = container.getElementsByClassName("land-details");
+      for (let i = 0; i < landSections.length; i++) {
+        const heading = landSections[i].getElementsByTagName("h3")[0];
+        heading.textContent = `Land ${i + 1}`;
+      }
+      landCount--;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agriculture Management System - Registration</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    
+    .registration-container {
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .registration-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .registration-container .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .registration-container .form-group label {
+      font-weight: bold;
+    }
+    
+    .registration-container .btn-register {
+      width: 100%;
+    }
+    
+    .registration-container .go-back-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="registration-container">
+      <h2>Registration</h2>
+      <form action="/register" method="post">
+        <div class="form-group">
+          <label for="mobile">Mobile Number</label>
+          <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number">
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-register">Register</button>
+      </form>
+      <div class="go-back-link">
+        <a href="/login">Go back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

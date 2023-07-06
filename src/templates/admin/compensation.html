@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Adjust the side panel width according to your requirements */
+    .side-panel {
+      max-width: 300px; /* Set the desired width of the side panel */
+      background-color: #616781; /* Set your desired side panel background color here */
+      height: 100vh; /* Set the side panel height to fill the viewport */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-panel .nav-link {
+      color: #fafdff; /* Set the color of side panel links */
+    }
+
+    .side-panel .nav-link:hover {
+      background-color: #e9ecef; /* Set the hover background color of side panel links */
+    }
+
+    .side-panel .nav-link.active {
+      background-color: #1c88f3; /* Set the background color of the active side panel link */
+      color: #ffffff; /* Set the color of the active side panel link */
+    }
+
+    .content {
+      flex: 1; /* Allow the content to grow and fill the remaining space */
+      padding: 20px;
+    }
+
+    html,
+    .intro {
+      height: 100%;
+    }
+
+    table td,
+    table th {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    body{
+      background-color: rgb(230, 230, 230);
+    }
+
+    .card {
+      border-radius: .5rem;
+    }
+.ch{
+  background-color:white;
+}
+    .mask-custom {
+      background: rgba(24, 24, 16, .2);
+      border-radius: 2em;
+      backdrop-filter: blur(25px);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      background-clip: padding-box;
+      box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+    }
+    .container{
+      margin-top: 150px;
+    }
+
+    .navbar .nav-link {
+      color: #f8f9fa; /* Set the color of navbar links */
+    }
+
+    .navbar .nav-link:hover {
+      color: #f8f9fa; /* Set the hover color of navbar links */
+    }
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Agriculture Management System Admin-Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="requestsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Requests
+              </a>
+              <div class="dropdown-menu" aria-labelledby="requestsDropdown">
+                <a class="dropdown-item" href="/admin/insurance">Insurance</a>
+                <a class="dropdown-item" href="/admin/compensation">Compensation</a>
+                <a class="dropdown-item" href="/admin/subsidy">Subsidy</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  My Account
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/admin/add">add Admin</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
+    
+          </ul>
+        </div>
+      </nav>
+    
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3 side-panel">
+            <!-- Side panel content goes here -->
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link {% if request.path=='/admin'%} active {% endif %}" href="/admin">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% if request.path=='/admin/users'%} active {% endif %}" href="/admin/users">Users</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/admin/add_notifications">Add Notification</a>
+              </li>
+              <!-- Add more menu items as needed -->
+            </ul>
+          </div>
+      <div class="col-md-9">
+<!-- template.html -->
+        <div class="mask d-flex align-items-center h-50">
+
+            <div class="container">
+                
+                <h3>Conpensation Requests</h3>
+                <div id="itemAccordion">
+                  {% for detail in indetails %}
+                  <div class="card">
+                    <div class="card-header ch" id="itemHeading{{ loop.index }}">
+                      <h2 class="mb-0">
+                        <button class="btn chb" type="button" data-toggle="collapse" data-target="#itemCollapse{{ loop.index }}" aria-expanded="false" aria-controls="itemCollapse{{ loop.index }}">
+                          {{detail.username }} {{detail.compensation_id }}
+                        </button>
+                      </h2>
+                    </div>
+              
+                    <div id="itemCollapse{{ loop.index }}" class="collapse" aria-labelledby="itemHeading{{ loop.index }}" data-parent="#itemAccordion">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p>Survey Number: <span id="surveyNumber{{ loop.index }}">{{ detail.survey_number }}</span></p>
+                            <p>Name of Land: <span id="landName{{ loop.index }}">{{ detail.land_name }}</span></p>
+                            <p>Name of Crop: <span id="cropName{{ loop.index }}">{{ detail.crop_name }}</span></p>
+                            <p>Stage of Crop: <span id="cropStage{{ loop.index }}">{{ detail.stage }}</span></p>
+                          </div>
+                          <div class="col-md-6">
+                            <p>Crop Quantity Destroyed: <span id="cropQuantity{{ loop.index }}">{{ detail.count }}</span></p>
+                            <p>Unit: <span id="unit{{ loop.index }}">{{ detail.unit }}</span></p>
+                            <p>Ward: <span id="ward{{ loop.index }}">{{ detail.ward }}</span></p>
+                            <p>Crop Image: <img src="/image/{{ detail.image }}" alt="Crop Image" width="100"></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        <button class="btn btn-danger" onclick="reject({{detail.compensation_id}})">Reject</button>
+                        <button class="btn btn-success" onclick="approve({{detail.compensation_id}})"">Approve</button>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              
+    
+              
+              
+              
+              <script>
+                approve = (id) => {
+                    fetch('/admin/compensation/approve/'+id, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            id: id
+                        })
+                    }).then(response => window.location.reload()).catch(err => console.log(err));
+                }
+                reject = (id) => {
+                    fetch('/admin/compensation/reject/'+id, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            id: id
+                        })
+                    }).then(response => window.location.reload()).catch(err => console.log(err));
+                }
+              </script>     
+              
+              
+              
+
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

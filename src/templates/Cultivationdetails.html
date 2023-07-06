@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cultivation Details Registration Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container{
+      max-width: 800px;
+      margin: 0 auto;
+      margin-top: 70px;
+      margin-bottom: 50px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Add Cultivation Details</h1>
+    <form action="/add_cultivation" method="POST">
+      <div id="cultivationDetailsContainer">
+        <div class="cultivation-details">
+          <h3>Cultivation 1</h3>
+          <div class="form-group">
+            <label for="survey_number">Survey Number:</label>
+            <input type="text" class="form-control" id="survey_number" name="survey_number" required>
+          </div>
+          <div class="form-group">
+            <label for="crop_type">Crop Type:</label>
+            <input type="text" class="form-control" id="crop_type" name="crop_type" required>
+          </div>
+          <div class="form-group">
+            <label for="crop_name">Crop Name:</label>
+            <input type="text" class="form-control" id="crop_name" name="crop_name" required>
+          </div>
+          <div class="form-group">
+            <label for="CropQuantity">Crop Quantity:</label>
+            <input type="text" class="form-control" id="CropQuantity" name="crop_quantity" required>
+          </div>
+          <div class="form-group">
+            <label for="PlantingDate">Planting Date:</label>
+            <input type="date" class="form-control" id="PlantingDate" name="planting_date" required>
+          </div>
+          <div class="form-group">
+            <label for="HarvestingDate">Harvesting Date:</label>
+            <input type="date" class="form-control" id="HarvestingDate" name="harvesting_date" required>
+          </div>
+          <div class="form-group">
+            <label for="ExpectedYield">Expected Yield:</label>
+            <input type="text" class="form-control" id="ExpectedYield" name="expected_yield" required>
+          </div>
+          <div class="form-group">
+            <label for="IrrigationType">Irrigation Type:</label>
+            <input type="text" class="form-control" id="IrrigationType" name="irrigation_type" required>
+          </div>
+          <div class="form-group">
+            <label for="LandType">Land Type:</label>
+            <input type="text" class="form-control" id="LandType" name="land_type" required>
+          </div>
+        </div>
+      </div>
+      <div class="text-right mt-3">
+        <button type="button" class="btn btn-primary" onclick="addCultivation()">Add Another Cultivation</button>
+      </div>
+      <div class="text-right mt-3">
+        <button type="submit" class="btn btn-primary">submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    let cultivationCount = 1;
+
+    function addCultivation() {
+      cultivationCount++;
+
+      const cultivationDetails = document.createElement("div");
+      cultivationDetails.classList.add("cultivation-details");
+
+      const heading = document.createElement("h3");
+      heading.textContent = `Cultivation ${cultivationCount}`;
+      cultivationDetails.appendChild(heading);
+
+      const fields = [
+        "SurveyNumber", "CropType", "CropName", "CropQuantity", "PlantingDate", "HarvestingDate",
+        "ExpectedYield", "IrrigationType", "LandType"
+      ];
+
+      fields.forEach(field => {
+        const formGroup = document.createElement("div");
+        formGroup.classList.add("form-group");
+
+        const label = document.createElement("label");
+        label.setAttribute("for", field);
+        label.textContent = field + ":";
+
+        const input = document.createElement("input");
+        if (field === "PlantingDate" || field === "HarvestingDate") {
+          input.setAttribute("type", "date");
+        } else {
+          input.setAttribute("type", "text");
+        }
+        input.classList.add("form-control");
+        input.setAttribute("id", field);
+        input.setAttribute("name", `${field}[]`);
+        input.setAttribute("required", "true");
+
+        formGroup.appendChild(label);
+        formGroup.appendChild(input);
+        cultivationDetails.appendChild(formGroup);
+      });
+
+      const deleteButton = document.createElement("button");
+      deleteButton.classList.add("btn", "btn-danger");
+      deleteButton.textContent = "Delete Cultivation";
+      deleteButton.onclick = function() { deleteCultivation(this); };
+      if (cultivationCount === 1) {
+        deleteButton.style.display = "none";
+      }
+      cultivationDetails.appendChild(deleteButton);
+
+      const container = document.getElementById("cultivationDetailsContainer");
+      container.appendChild(cultivationDetails);
+    }
+
+    function deleteCultivation(button) {
+      const cultivationDetails = button.parentElement;
+      cultivationDetails.remove();
+
+      cultivationCount--;
+      updateCultivationNumbers();
+    }
+
+    function updateCultivationNumbers() {
+      const cultivationDetails = document.getElementsByClassName("cultivation-details");
+      for (let i = 0; i < cultivationDetails.length; i++) {
+        cultivationDetails[i].querySelector("h3").textContent = `Cultivation ${i + 1}`;
+        if (i === 0) {
+          cultivationDetails[i].querySelector(".btn-danger").style.display = "none";
+        } else {
+          cultivationDetails[i].querySelector(".btn-danger").style.display = "block";
+        }
+      }
+    }
+  </script>
+</body>
+</html>

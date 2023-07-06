@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+       /* Adjust the side panel width according to your requirements */
+       .side-panel {
+      max-width: 300px; /* Set the desired width of the side panel */
+      background-color: #616781; /* Set your desired side panel background color here */
+      height: 100vh; /* Set the side panel height to fill the viewport */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-panel .nav-link {
+      color: #fafdff; /* Set the color of side panel links */
+    }
+
+    .side-panel .nav-link:hover {
+      background-color: #e9ecef; /* Set the hover background color of side panel links */
+    }
+
+    .side-panel .nav-link.active {
+      background-color: #1c88f3; /* Set the background color of the active side panel link */
+      color: #ffffff; /* Set the color of the active side panel link */
+    }
+
+    .content {
+      flex: 1; /* Allow the content to grow and fill the remaining space */
+      padding: 20px;
+    }
+
+    html,
+    .intro {
+      height: 100%;
+    }
+
+    table td,
+    table th {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .card {
+      border-radius: .5rem;
+    }
+
+    .mask-custom {
+      background: rgba(24, 24, 16, .2);
+      border-radius: 2em;
+      backdrop-filter: blur(25px);
+      border: 2px solid rgba(255, 255, 255, 0.05);
+      background-clip: padding-box;
+      box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+    }
+
+    .navbar .nav-link {
+      color: #f8f9fa; /* Set the color of navbar links */
+    }
+
+    .navbar .nav-link:hover {
+      color: #f8f9fa; /* Set the hover color of navbar links */
+    }
+    .centered-form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Agriculture Management System Admin-Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="requestsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Requests
+          </a>
+          <div class="dropdown-menu" aria-labelledby="requestsDropdown">
+            <a class="dropdown-item" href="/admin/insurance">Insurance</a>
+            <a class="dropdown-item" href="/admin/compensation">Compensation</a>
+            <a class="dropdown-item" href="/admin/subsidy">Subsidy</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              My Account
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/admin/add">add Admin</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+
+      </ul>
+    </div>
+  </nav>
+
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 side-panel">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link {% if request.path=='/admin'%} active {% endif %}" href="/admin">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.path=='/admin/users'%} active {% endif %}" href="/admin/users">Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/add_notifications">Add Notification</a>
+          </li>
+          <!-- Add more menu items as needed -->
+        </ul>
+      </div>
+      <div class="col-md-9">
+        <div class="centered-form">
+          <div class="card">
+            <div class="card-body">
+              <h2 class="card-title">Add Admin</h2>
+              <form action="#" method="post">
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Enter your e-mail">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="number" class="form-control" id="phone" name="phone" placeholder="Enter your Phone No:">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="panchayat">Panchayat</label>
+                      <input type="text" class="form-control" id="panchayat" name="panchayat" placeholder="Enter your panchayat">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary">Add Admin</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

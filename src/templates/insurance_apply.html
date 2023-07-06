@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Insurance{% endblock %}
+{% block content %}
+
+
+
+<style>
+  .container{
+    margin-top: 100px;
+    background-color: white;
+    padding: 50px 50px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  body{
+    background-color: #eeeeee;
+  }
+</style>
+          <div class="container" Styple="background-color:white">
+            <h3>Insurance Application</h3>
+            {% if error %}
+            <div class="alert alert-danger" role="alert">
+              {{error}}
+            </div>
+            {% endif %}
+            <form action="/insurance/apply" method="POST">
+              <div class="form-group">
+                <label for="schemeType">Scheme Type:</label>
+                <input type="text" class="form-control" id="schemeType" name="scheme_type" placeholder="Enter Scheme Type">
+              </div>
+              <div class="form-group">
+                  <label for="crop_type">Crop Type:</label>
+                  <select name="crop_type" id="crop_type" required>
+                    <option value="">Select Crop Type</option>
+                    <option value="5000">Plantation</option>
+                    <option value="6000">Tuber Crops</option>
+                    <option value="9000">Spices</option>
+                    <option value="4000">Vegetable Crops</option>
+                    <option value="4000">Fruit Crops</option>
+                    <option value="7000">Oil Crops</option>
+                  </select>
+                </div>
+              <div class="form-group">
+                <label for="crop_name">Crop Name:</label>
+                <input type="text" class="form-control" id="crop_name" name="crop_name"  placeholder="Enter Crop Name">
+              </div>
+              <div class="form-group">
+                <label for="crop_count">Crop Count:</label>
+                <input type="number" class="form-control" id="crop_count" valur="crop_count" name="crop_count"  placeholder="Enter Crop Count">
+              </div>
+              <div class="form-group">
+                <label for="insuranceDuration">Insurance Duration:</label>
+                <input type="text" class="form-control" id="insuranceDuration" name="duration"  placeholder="Enter Insurance Duration">
+              </div>
+              
+              <div class="form-group">
+                
+                <label for="insurance_amount">Insurance amount:</label>
+                <input type="number" class="form-control" name="insurance_amount" id="insurance_amount" readonly>
+                <button type="button" onclick="calculateProduct()" class="btn-warning">Calculate</button>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <script>
+            function calculateProduct() {
+              var value1 = parseFloat(document.getElementById("crop_type").value);
+              var value2 = parseFloat(document.getElementById("crop_count").value);
+        
+              if (!isNaN(value1) && !isNaN(value2)) {
+                var product = value1 * value2;
+                document.getElementById("insurance_amount").value = product;
+              }
+            }
+          </script>
+
+
+{% endblock %}

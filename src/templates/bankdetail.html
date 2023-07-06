@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bank Detail Registration Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container{
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 150px;
+      margin-bottom: 50px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="text-center">Add Bank Details</h1>
+    <form action="/add_bank" method="POST">
+      {% if b %}
+      <div class="form-group">
+        <label for="Bankname">Name:</label>
+        <input type="text" class="form-control" value={{b.name}} id="Bankname" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="Bankname">Bank Name:</label>
+        <input type="text" class="form-control" id="Bankname" value={{b.bank_name}} name="bank_name" required>
+      </div>
+      <div class="form-group">
+        <label for="BankBranch">Bank Branch:</label>
+        <input type="text" class="form-control" id="BankBranch" value={{b.branch_name}} name="branch_name" required>
+      </div>
+      <div class="form-group">
+        <label for="IFSCCode">IFSC Code:</label>
+        <input type="text" class="form-control" id="IFSCCode" value={{b.ifsc_code}} name="ifsc_code" required>
+      </div>
+      <div class="form-group">
+        <label for="Accountnumber">Account number:</label>
+        <input type="text" class="form-control" id="Accountnumber" value={{b.account_number}} name="account_number" required>
+      </div>
+      
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      {% else %}
+      <div class="form-group">
+        <label for="Bankname">Name:</label>
+        <input type="text" class="form-control" id="Bankname" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="Bankname">Bank Name:</label>
+        <input type="text" class="form-control" id="Bankname" name="bank_name" required>
+      </div>
+      <div class="form-group">
+        <label for="BankBranch">Bank Branch:</label>
+        <input type="text" class="form-control" id="BankBranch" name="branch_name" required>
+      </div>
+      <div class="form-group">
+        <label for="IFSCCode">IFSC Code:</label>
+        <input type="text" class="form-control" id="IFSCCode" name="ifsc_code" required>
+      </div>
+      <div class="form-group">
+        <label for="Accountnumber">Account number:</label>
+        <input type="text" class="form-control" id="Accountnumber" name="account_number" required>
+      </div>
+      
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Next</button>
+      </div>
+      {%  endif %}
+    </form>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

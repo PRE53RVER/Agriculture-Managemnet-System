@@ -1,6 +1,6 @@
-# Agriculture-Management System
+# Agriculture Management System
 
-Agriculture-Management System is a web application built with Flask that aims to provide a comprehensive platform for farmers and agricultural authorities to manage various aspects of agricultural operations. The application offers features such as user registration, profile management, land and cultivation details, insurance and compensation applications, subsidy management, soil testing, product listing, and administrative functionalities.
+Agriculture Management System is a web application built with Flask that aims to provide a comprehensive platform for farmers and agricultural authorities to manage various aspects of agricultural operations. The application offers features such as user registration, profile management, land and cultivation details, insurance and compensation applications, subsidy management, soil testing, product listing, and administrative functionalities.
 
 ## Features
 

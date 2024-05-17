@@ -85,10 +85,3 @@ The application will be accessible at `http://localhost:5000`.
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-```
-
-This README provides an overview of the project, its features, technologies used, installation instructions, Docker deployment steps, contributing guidelines, and license information. Feel free to modify it as per your project's specific requirements.
